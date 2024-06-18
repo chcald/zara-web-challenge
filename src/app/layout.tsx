@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto_Condensed } from 'next/font/google';
-import './styles/globals.css';
+import './styles/styles.scss';
 
 const robotoCondensed = Roboto_Condensed({ weight: '400', subsets: ['latin'] });
 

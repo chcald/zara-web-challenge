@@ -1,9 +1,15 @@
+'use client';
+
 import Image from 'next/image';
-import styles from './page.module.css';
+import styles from './styles/home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { CardList } from './components/cardList';
+import useCharacters from './hooks/useCharacters';
 
-export default function Home() {
+const HomePage = () => {
+  const { characters, loading, error, fetchCharacters } = useCharacters();
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -32,7 +38,14 @@ export default function Home() {
             className={styles.searchInput}
           />
         </div>
+        <span className={styles.resultCount}>{characters?.length} RESULTS</span>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error.message}</p>}
+        {characters && <CardList list={characters!} />}
+        <button onClick={() => fetchCharacters(50)}>Load More</button>
       </div>
     </div>
   );
-}
+};
+
+export default HomePage;

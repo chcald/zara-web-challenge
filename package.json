@@ -14,19 +14,22 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "crypto-js": "^4.2.0",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sass": "^1.77.5"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^20.14.4",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.3.2",
-    "typescript": "^5"
+    "typescript": "^5.4.5"
   }
 }

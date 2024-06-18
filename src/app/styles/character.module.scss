@@ -1,0 +1,72 @@
+@import 'variables';
+@import 'mixins';
+
+.cardsContainer {
+  @include space-between-flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: black;
+  overflow: hidden;
+  margin-top: 3rem;
+  position: relative;
+
+  .cardInner {
+    @include space-between-flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    img {
+      width: 188.57px;
+      height: 189.97px;
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+
+    // &:hover img {
+    //   transform: scale(1.1);
+    // }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: $background-color;
+      bottom: 0;
+      right: 0;
+      clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    }
+
+    .boxContent {
+      @include space-between-flex;
+      color: white;
+      font-size: 14px;
+      line-height: 16.41px;
+      border-top: 5.38px solid #ec1d24;
+      width: 100%;
+      margin: 0 auto;
+      height: 56px;
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+        url(/public/heart.svg);
+    }
+    .rightBox {
+      flex-basis: 50%;
+    }
+    .leftBox {
+      flex-basis: 20%;
+    }
+    .boxContent img {
+      width: 12px;
+      height: 10.84px;
+      box-shadow: 0 5px 5px 5px rgba(255, 255, 255, 0.2);
+      transform: rotate(20deg);
+      transition: 0.5s;
+    }
+    .box-content img:hover {
+      transform: rotate(0deg);
+    }
+  }
+}
