@@ -2,8 +2,10 @@
 @import 'mixins';
 
 .cardsContainer {
-  @include space-between-flex;
+  display: flex;
   flex-wrap: wrap;
+  justify-content: start;
+  gap: 24px;
 }
 
 .card {
