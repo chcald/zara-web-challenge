@@ -38,11 +38,11 @@ const HomePage = () => {
             className={styles.searchInput}
           />
         </div>
-        <span className={styles.resultCount}>{characters?.length} RESULTS</span>
+        <span className={styles.resultCount}>{characters?.length} RESULT{characters?.length!==1 && 'S'}</span>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error.message}</p>}
         {characters && <CardList list={characters!} />}
-        <button onClick={() => fetchCharacters(50)}>Load More</button>
+        <button onClick={() => fetchCharacters(1)}>Load More</button>
       </div>
     </div>
   );
