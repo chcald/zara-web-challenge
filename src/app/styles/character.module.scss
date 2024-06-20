@@ -43,18 +43,41 @@
       color: white;
       font-size: 14px;
       line-height: 16.41px;
-      border-top: 5.38px solid #ec1d24;
+      border-top: 5.38px solid $red-color;
       width: 100%;
       margin: 0 auto;
       height: 56px;
+      position: relative; 
+      overflow: hidden;
+      cursor: pointer;
+
+      .hoverOverlay {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background-color: $red-color;
+        transition: height 0.3s ease-in-out;
+      }
+
+      &:hover .hoverOverlay {
+        height: calc(100%);
+        top: 0;
+      }
     }
     .rightBox {
-      flex-basis: 50%;
+      flex-basis: 65%;
+      word-wrap: break-word;
+      white-space: normal;
+      font-size: clamp(12px, 2vw, 16px);
+      z-index: 10;
     }
     .leftBox {
       flex-basis: 17%;
+      z-index: 10;
     }
- 
+
     .boxContent img {
       width: 12px;
       height: 10.84px;

@@ -12,7 +12,7 @@ export function getQueryParams(offset?: number) {
     ts,
     apikey: PUBLIC_KEY,
     hash: md5(ts + PRIVATE_KEY + PUBLIC_KEY),
-    limit: offset === undefined ? undefined : 50,
+    limit: offset === undefined ? 50 : undefined,
     offset,
   };
   return (Object.keys(params) as (keyof typeof params)[])
@@ -52,3 +52,7 @@ export const getCharacterList = async (offset?: number): Promise<Character[] | n
       return null;
     }
   };
+  // export const getCharacterListByName = async (name: string) => {
+  //   const response = await axios.get(`https://api.example.com/characters?name=${name}`);
+  //   return response.data.results;
+  // };

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getCharacterList } from '../services/characterService';
+import { useLoading } from '../contexts/LoadingContext';
 
 const useCharacters = (initialOffset?: number) => {
   const [characters, setCharacters] = useState<Character[] | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const { loading, setLoading } = useLoading();
 
   const fetchCharacters = async (offset?: number) => {
     setLoading(true);

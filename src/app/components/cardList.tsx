@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '../styles/character.module.scss';
+import styles from '@/styles/character.module.scss';
 
 interface CardListProps {
   list: Character[];
@@ -18,6 +18,7 @@ export const CardList = ({ list }: CardListProps) => {
                   alt="Hero image"
                 />
                 <div className={styles.boxContent}>
+                  <div className={styles.hoverOverlay}></div>
                   <span className={styles.rightBox}>{item.name}</span>
                   <div className={styles.leftBox}>
                     <Image

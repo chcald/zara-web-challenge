@@ -1,30 +1,40 @@
 'use client';
 
-import Image from 'next/image';
-import styles from './styles/home.module.scss';
+import styles from '@/styles/home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CardList } from './components/cardList';
-import useCharacters from './hooks/useCharacters';
+import { CardList } from '@/components/CardList';
+import useCharacters from '@/hooks/useCharacters';
+import Header from '@/components/Header';
+import { SetStateAction, useEffect, useState } from 'react';
 
 const HomePage = () => {
-  const { characters, loading, error, fetchCharacters } = useCharacters();
+  const { characters, error } = useCharacters();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
+
+  useEffect(() => {
+    characters && setFilteredCharacters(characters);
+  }, []);
+
+  useEffect(() => {
+    console.log(searchTerm)
+    if (characters) {
+      if (searchTerm.length > 0) {
+        setFilteredCharacters(
+          characters.filter((character) =>
+            character.name.toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+        );
+      } else {
+        setFilteredCharacters(characters);
+      }
+    }
+  }, [searchTerm, characters]);
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <Image
-          src="/marvel-logo.svg"
-          alt="marvel logo"
-          width={130}
-          height={52}
-          priority
-        />
-        <div className={styles.favoritesCounterWrapper}>
-          <Image src="/heart.svg" alt="heart" width={24} height={21.68} />
-          <span>3</span>
-        </div>
-      </header>
+      <Header />
       <div className={styles.searchContainer}>
         <div className={styles.searchWrapper}>
           <FontAwesomeIcon
@@ -36,13 +46,17 @@ const HomePage = () => {
             type="text"
             placeholder="SEARCH A CHARACTER..."
             className={styles.searchInput}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <span className={styles.resultCount}>{characters?.length} RESULT{characters?.length!==1 && 'S'}</span>
-        {loading && <p>Loading...</p>}
+        <span className={styles.resultCount}>
+          {filteredCharacters?.length} RESULT
+          {filteredCharacters?.length !== 1 && 'S'}
+        </span>
         {error && <p>Error: {error.message}</p>}
-        {characters && <CardList list={characters!} />}
-        <button onClick={() => fetchCharacters(1)}>Load More</button>
+        {filteredCharacters && <CardList list={filteredCharacters} />}
+        {/* <button onClick={() => fetchCharacters(1)}>Load More</button> */}
       </div>
     </div>
   );
