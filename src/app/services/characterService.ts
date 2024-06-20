@@ -3,6 +3,7 @@ import md5 from 'crypto-js/md5';
 const BASE_URL = 'https://gateway.marvel.com/v1/public';
 const PUBLIC_KEY = 'ceae6d55789ffb4fcf134cacf3a0fc3b';
 const PRIVATE_KEY = 'b5b9e4a4e82fd4a2d235bc14b97d54883a992ca1';
+const MAX_ITEMS = 50;
 
 type Response = { data: { results: Character[] } };
 
@@ -12,7 +13,7 @@ export function getQueryParams(offset?: number) {
     ts,
     apikey: PUBLIC_KEY,
     hash: md5(ts + PRIVATE_KEY + PUBLIC_KEY),
-    limit: offset === undefined ? 50 : undefined,
+    limit: offset === undefined ? MAX_ITEMS : offset,
     offset,
   };
   return (Object.keys(params) as (keyof typeof params)[])

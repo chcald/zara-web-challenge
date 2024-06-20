@@ -24,7 +24,7 @@ const useCharacters = (initialOffset?: number) => {
     fetchCharacters(initialOffset);
   }, [initialOffset]);
 
-  return { characters, loading, error, fetchCharacters };
+  return { characters, error, fetchCharacters };
 };
 
 export default useCharacters;

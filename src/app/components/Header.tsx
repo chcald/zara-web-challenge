@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from '@/app/styles/home.module.scss';
+import styles from '../styles/home.module.scss';
 
-import { useFavorites } from '@/app/contexts/FavoritesContext';
-import { useLoading } from '@/app/contexts/LoadingContext';
+import { useFavorites } from '../contexts/FavoritesContext';
+import { useLoading } from '../contexts/LoadingContext';
 import classNames from 'classnames';
 
 const Header = () => {

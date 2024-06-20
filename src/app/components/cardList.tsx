@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '@/app/styles/character.module.scss';
+import styles from '../styles/character.module.scss';
 
 interface CardListProps {
   list: Character[];
