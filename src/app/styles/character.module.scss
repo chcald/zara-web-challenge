@@ -47,7 +47,7 @@
       width: 100%;
       margin: 0 auto;
       height: 56px;
-      position: relative; 
+      position: relative;
       overflow: hidden;
       cursor: pointer;
 
@@ -70,7 +70,8 @@
       flex-basis: 65%;
       word-wrap: break-word;
       white-space: normal;
-      font-size: clamp(12px, 2vw, 16px);
+      margin-left: 0.2rem;
+      font-size: clamp(12px, 2vw, 14px);
       z-index: 10;
     }
     .leftBox {
@@ -97,4 +98,7 @@
   .cardsContainer {
     grid-template-columns: repeat(7, 1fr);
   }
+  .card .cardInner .boxContent .rightBox {
+    flex-basis: 50%;
+  } 
 }

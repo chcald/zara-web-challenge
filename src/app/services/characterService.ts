@@ -52,7 +52,3 @@ export const getCharacterList = async (offset?: number): Promise<Character[] | n
       return null;
     }
   };
-  // export const getCharacterListByName = async (name: string) => {
-  //   const response = await axios.get(`https://api.example.com/characters?name=${name}`);
-  //   return response.data.results;
-  // };

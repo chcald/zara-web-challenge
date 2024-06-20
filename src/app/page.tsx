@@ -1,12 +1,12 @@
 'use client';
 
-import styles from '@/styles/home.module.scss';
+import styles from '@/app/styles/home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CardList } from '@/components/CardList';
-import useCharacters from '@/hooks/useCharacters';
-import Header from '@/components/Header';
-import { SetStateAction, useEffect, useState } from 'react';
+import { CardList } from '@/app/components/CardList';
+import useCharacters from '@/app/hooks/useCharacters';
+import Header from '@/app/components/Header';
+import { useEffect, useState } from 'react';
 
 const HomePage = () => {
   const { characters, error } = useCharacters();
@@ -56,7 +56,6 @@ const HomePage = () => {
         </span>
         {error && <p>Error: {error.message}</p>}
         {filteredCharacters && <CardList list={filteredCharacters} />}
-        {/* <button onClick={() => fetchCharacters(1)}>Load More</button> */}
       </div>
     </div>
   );
