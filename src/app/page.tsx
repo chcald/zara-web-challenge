@@ -1,11 +1,11 @@
 'use client';
 
-import styles from './styles/home.module.scss';
+import styles from '../styles/home.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CardList } from './components/CardList';
-import useCharacters from './hooks/useCharacters';
-import Header from './components/Header';
+import { CardList } from '../components/CardList';
+import useCharacters from '../hooks/useCharacters';
+import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 
 const HomePage = () => {
