@@ -7,7 +7,7 @@ const MAX_ITEMS = 50;
 
 type Response = { data: { results: Character[] } };
 
-export function getQueryParams(offset?: number) {
+export function getQueryParams(offset?: number, name?: string) {
   const ts = new Date().getTime().toString();
   const params = {
     ts,
@@ -15,6 +15,7 @@ export function getQueryParams(offset?: number) {
     hash: md5(ts + PRIVATE_KEY + PUBLIC_KEY),
     limit: offset === undefined ? MAX_ITEMS : offset,
     offset,
+    nameStartsWith: name, // if name is undefined: nameStartsWith will not be added
   };
   return (Object.keys(params) as (keyof typeof params)[])
     .filter((key) => params[key] !== undefined)
@@ -24,23 +25,8 @@ export function getQueryParams(offset?: number) {
     .join('&');
 }
 
-export const getCharacterById = async (id: string): Promise<Character | null> => {
-  const url = `${BASE_URL}/characters/${id}?${getQueryParams()}`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data: Response = await response.json();
-    return data.data.results[0];
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return null;
-  }
-};
-
-export const getCharacterList = async (offset?: number): Promise<Character[] | null> => {
-    const url = `${BASE_URL}/characters?${getQueryParams(offset)}`;
+export const getCharacterList = async (offset?: number, name?: string): Promise<Character[] | null> => {
+    const url = `${BASE_URL}/characters?${getQueryParams(offset, name)}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {

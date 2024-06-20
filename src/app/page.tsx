@@ -9,28 +9,17 @@ import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 
 const HomePage = () => {
-  const { characters, error } = useCharacters();
+  const { characters, error, fetchCharacters } = useCharacters();
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
+
 
   useEffect(() => {
-    characters && setFilteredCharacters(characters);
-  }, []);
-
-  useEffect(() => {
-    console.log(searchTerm)
-    if (characters) {
-      if (searchTerm.length > 0) {
-        setFilteredCharacters(
-          characters.filter((character) =>
-            character.name.toLowerCase().includes(searchTerm.toLowerCase()),
-          ),
-        );
-      } else {
-        setFilteredCharacters(characters);
-      }
+    if (searchTerm.length > 0) {
+      fetchCharacters(undefined, searchTerm);
+    } else {
+      fetchCharacters(50, undefined);
     }
-  }, [searchTerm, characters]);
+  }, [searchTerm]);
 
   return (
     <div className={styles.container}>
@@ -51,11 +40,11 @@ const HomePage = () => {
           />
         </div>
         <span className={styles.resultCount}>
-          {filteredCharacters?.length} RESULT
-          {filteredCharacters?.length !== 1 && 'S'}
+          {characters?.length} RESULT
+          {characters?.length !== 1 && 'S'}
         </span>
         {error && <p>Error: {error.message}</p>}
-        {filteredCharacters && <CardList list={filteredCharacters} />}
+        {characters && <CardList list={characters} />}
       </div>
     </div>
   );

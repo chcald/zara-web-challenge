@@ -5,12 +5,12 @@ import { useLoading } from '../contexts/LoadingContext';
 const useCharacters = (initialOffset?: number) => {
   const [characters, setCharacters] = useState<Character[] | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const { loading, setLoading } = useLoading();
+  const { setLoading } = useLoading();
 
-  const fetchCharacters = async (offset?: number) => {
+  const fetchCharacters = async (offset?: number, name?: string) => {
     setLoading(true);
     try {
-      const data = await getCharacterList(offset);
+      const data = await getCharacterList(offset, name);
       setCharacters(data);
       setError(null);
     } catch (error) {
@@ -21,7 +21,7 @@ const useCharacters = (initialOffset?: number) => {
   };
 
   useEffect(() => {
-    fetchCharacters(initialOffset);
+    fetchCharacters(initialOffset, '');
   }, [initialOffset]);
 
   return { characters, error, fetchCharacters };
