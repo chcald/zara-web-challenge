@@ -1,52 +1,29 @@
 'use client';
 
-import styles from '../styles/home.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CardList } from '../components/CardList';
 import useCharacters from '../hooks/useCharacters';
 import Header from '../components/Header';
-import { useEffect, useState } from 'react';
+import { useSearch } from '../contexts/SearchContext';
+import { CharacterSearch } from '../components/CharacterSearch';
 
 const HomePage = () => {
   const { characters, error, fetchCharacters } = useCharacters();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { setSearchQuery } = useSearch();
 
-
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      fetchCharacters(undefined, searchTerm);
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchQuery(value);
+    if (value.length > 0) {
+      fetchCharacters(undefined, value); // It would implement this in your useCharacters hook to support filtering by name
     } else {
-      fetchCharacters(50, undefined);
+      fetchCharacters(50); // Fetch initial list of characters when search term is cleared or too short
     }
-  }, [searchTerm]);
+  };
 
   return (
-    <div className={styles.container}>
+    <>
       <Header />
-      <div className={styles.searchContainer}>
-        <div className={styles.searchWrapper}>
-          <FontAwesomeIcon
-            icon={faSearch}
-            className={styles.searchIcon}
-            size="sm"
-          />
-          <input
-            type="text"
-            placeholder="SEARCH A CHARACTER..."
-            className={styles.searchInput}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <span className={styles.resultCount}>
-          {characters?.length} RESULT
-          {characters?.length !== 1 && 'S'}
-        </span>
-        {error && <p>Error: {error.message}</p>}
-        {characters && <CardList list={characters} />}
-      </div>
-    </div>
+      <CharacterSearch handleSearchChange={handleSearchChange} error={error} characters={characters!} />
+    </>
   );
 };
 

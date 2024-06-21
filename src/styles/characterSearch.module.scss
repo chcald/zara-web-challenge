@@ -1,31 +1,13 @@
 @import 'mixins';
 @import 'variables';
 
-.container {
-  text-align: center;
-}
-
-.header {
-  @include space-between-flex;
-  background-color: black;
-  height: 84px;
-  position: fixed;
-  padding: 16px;
-  top: 0;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1000;
-}
-
-.loadingLine {
-  border-bottom: 5px solid $red-color;
-}
-
-.searchContainer {
-  @include center-flex;
-  flex-direction: column;
-  margin-top: 108px;
-  padding: 0 16px;
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 37.5px;
+  text-align: left;
+  color: $black-color;
+  padding: 24px 0;
 }
 
 .resultCount {
@@ -35,17 +17,18 @@
   line-height: 14.06px;
 }
 
+.characterSearchContainer {
+  @include center-flex;
+  flex-direction: column;
+  margin-top: 108px;
+  padding: 0 16px;
+}
+
 .searchWrapper {
   display: flex;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-}
-
-.favoritesCounterWrapper {
-  @include space-between-flex;
-  gap: 8px;
-  color: white;
 }
 
 .searchIcon {
@@ -57,14 +40,14 @@
   height: 12px;
   margin-top: 8px;
   margin-right: -12px;
-  color: black;
+  color: $black-color;
 }
 
 .searchInput {
   width: 100%;
   padding: 8px 8px 8px 22px;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid $black-color;
   background: none;
   outline: none;
   background: $background-color;
@@ -75,27 +58,18 @@
 
 .searchInput::placeholder {
   color: $placeholder-color;
-  ;
 }
 
 /* Estilos para tablets */
 @media (min-width: 600px) {
-  .header {
-    padding: 16px 48px;
-  }
-
-  .searchContainer {
+  .characterSearchContainer {
     padding: 0 48px;
   }
 }
 
 /* Estilos para desktops */
 @media (min-width: 1024px) {
-  .header {
-    padding: 16px 48px;
-  }
-
-  .searchContainer {
+  .characterSearchContainer {
     padding: 0 48px;
   }
 }

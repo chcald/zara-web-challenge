@@ -10,17 +10,22 @@ export const metadata: Metadata = {
 };
 import { LoadingProvider } from '../contexts/LoadingContext';
 import { FavoritesProvider } from '../contexts/FavoritesContext';
+import { SearchProvider } from '../contexts/SearchContext';
 
-export default function RootLayout({children}: { children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={robotoCondensed.className}>
         <LoadingProvider>
           <FavoritesProvider>
-            {children}
+            <SearchProvider>{children}</SearchProvider>
           </FavoritesProvider>
         </LoadingProvider>
-       </body>
+      </body>
     </html>
   );
 }

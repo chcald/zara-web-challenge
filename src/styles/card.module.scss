@@ -9,7 +9,7 @@
 }
 
 .card {
-  background: black;
+  background: $black-color;
   overflow: hidden;
   margin-top: 3rem;
   position: relative;
@@ -40,7 +40,7 @@
 
     .boxContent {
       @include space-between-flex;
-      color: white;
+      color: $white-color;
       font-size: 14px;
       line-height: 16.41px;
       border-top: 5.38px solid $red-color;

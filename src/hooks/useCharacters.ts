@@ -21,7 +21,7 @@ const useCharacters = (initialOffset?: number) => {
   };
 
   useEffect(() => {
-    fetchCharacters(initialOffset, '');
+    fetchCharacters(initialOffset, undefined);
   }, [initialOffset]);
 
   return { characters, error, fetchCharacters };
