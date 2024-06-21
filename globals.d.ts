@@ -33,7 +33,7 @@ interface CharacterSearchProps {
   characters: Character[];
   error?: Error | null;
   title?: string;
-};
+}
 
 interface Params {
   ts: string;
@@ -42,4 +42,4 @@ interface Params {
   limit: number | undefined;
   offset?: number | undefined;
   nameStartsWith?: string;
-};
+}

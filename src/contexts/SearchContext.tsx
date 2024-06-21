@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 
@@ -18,7 +18,9 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <SearchContext.Provider value={{ searchQuery, setSearchQuery, resetSearch }}>
+    <SearchContext.Provider
+      value={{ searchQuery, setSearchQuery, resetSearch }}
+    >
       {children}
     </SearchContext.Provider>
   );

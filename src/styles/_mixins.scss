@@ -1,10 +1,10 @@
 @mixin space-between-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  @mixin center-flex {
-    display: flex;
-    justify-content: center;
-  }
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+}

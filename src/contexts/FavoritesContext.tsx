@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
@@ -8,7 +8,9 @@ interface FavoritesContextProps {
   removeFavorite: (favoriteId: number) => void;
 }
 
-const FavoritesContext = createContext<FavoritesContextProps | undefined>(undefined);
+const FavoritesContext = createContext<FavoritesContextProps | undefined>(
+  undefined,
+);
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<Character[]>([]);
@@ -18,11 +20,15 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFavorite = (favoriteId: number) => {
-    setFavorites((prevFavorites) => prevFavorites.filter(fav => fav.id !== favoriteId));
+    setFavorites((prevFavorites) =>
+      prevFavorites.filter((fav) => fav.id !== favoriteId),
+    );
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite }}>
+    <FavoritesContext.Provider
+      value={{ favorites, addFavorite, removeFavorite }}
+    >
       {children}
     </FavoritesContext.Provider>
   );

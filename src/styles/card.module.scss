@@ -98,7 +98,7 @@
   .cardsContainer {
     grid-template-columns: repeat(7, 1fr);
   }
-  .card>.cardInner>.boxContent>.rightBox {
+  .card > .cardInner > .boxContent > .rightBox {
     flex-basis: 50%;
-  } 
+  }
 }
