@@ -23,7 +23,11 @@ const Header = () => {
     <header
       className={classNames(styles.header, { [styles.loadingLine]: loading })}
     >
-      <div className={styles.logoWrapper} onClick={handleLogoHeader}>
+      <div
+        data-testid="logo-wrapper"
+        className={styles.logoWrapper}
+        onClick={handleLogoHeader}
+      >
         <Image
           src="/marvel-logo.svg"
           alt="marvel logo"
@@ -33,6 +37,7 @@ const Header = () => {
         />
       </div>
       <div
+        data-testid="favorites-counter-wrapper"
         className={styles.favoritesCounterWrapper}
         onClick={() => router.push('/favorites')}
       >
