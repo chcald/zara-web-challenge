@@ -2,10 +2,6 @@ import Image from 'next/image';
 import styles from '../styles/card.module.scss';
 import { useFavorites } from '../contexts/FavoritesContext';
 
-interface CardListProps {
-  list: Character[];
-}
-
 export const CardList = ({ list }: CardListProps) => {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 

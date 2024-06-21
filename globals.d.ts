@@ -24,3 +24,22 @@ interface Character {
     | Record<string, unknown>
     | Record<string, unknown>[];
 }
+
+interface CardListProps {
+  list: Character[];
+}
+interface CharacterSearchProps {
+  handleSearchChange: React.ChangeEventHandler<HTMLInputElement>;
+  characters: Character[];
+  error?: Error | null;
+  title?: string;
+};
+
+interface Params {
+  ts: string;
+  apikey: string;
+  hash: string;
+  limit: number | undefined;
+  offset?: number | undefined;
+  nameStartsWith?: string;
+};

@@ -6,14 +6,7 @@ const PRIVATE_KEY = process.env.NEXT_PUBLIC_PRIVATE_KEY;
 const MAX_ITEMS = Number(process.env.MAX_ITEMS) || 50;
 
 type Response = { data: { results: Character[] } };
-type Params = {
-  ts: string;
-  apikey: string;
-  hash: string;
-  limit: number | undefined;
-  offset?: number | undefined;
-  nameStartsWith?: string;
-};
+
 export function getQueryParams(offset?: number, name?: string) {
   const ts = new Date().getTime().toString();
   const params: Params = {

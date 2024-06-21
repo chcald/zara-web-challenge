@@ -5,13 +5,6 @@ import { useSearch } from '../contexts/SearchContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-type CharacterSearchProps = {
-  handleSearchChange: React.ChangeEventHandler<HTMLInputElement>;
-  characters: Character[];
-  error?: Error | null;
-  title?: string;
-};
-
 export const CharacterSearch = ({
   title,
   handleSearchChange,

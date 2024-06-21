@@ -6,7 +6,7 @@ import { CharacterSearch } from '../../components/CharacterSearch';
 import { useSearch } from '../../contexts/SearchContext';
 
 const FavoritesPage = () => {
-  const { searchQuery, setSearchQuery } = useSearch();
+  const { setSearchQuery } = useSearch();
   const { favorites } = useFavorites();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
