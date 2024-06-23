@@ -36,7 +36,7 @@ export const CardList = ({ list }: CardListProps) => {
                   src={
                     isFavorite(item) ? '/heart.svg' : '/unselected-heart.svg'
                   }
-                  alt="favorite"
+                  alt="Favorite Hero"
                   width={12}
                   height={10.84}
                 />

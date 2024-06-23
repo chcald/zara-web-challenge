@@ -4,10 +4,25 @@ import Header from '../../components/Header';
 import { useFavorites } from '../../contexts/FavoritesContext';
 import { CharacterSearch } from '../../components/CharacterSearch';
 import { useSearch } from '../../contexts/SearchContext';
+import { useEffect, useState } from 'react';
 
 const FavoritesPage = () => {
-  const { setSearchQuery } = useSearch();
+  const { setSearchQuery, searchQuery, resetSearch } = useSearch();
   const { favorites } = useFavorites();
+  const [filteredFavorites, setFilteredFavorites] =
+    useState<Character[]>(favorites);
+
+  useEffect(() => {
+    resetSearch();
+  });
+
+  useEffect(() => {
+    setFilteredFavorites(
+      favorites.filter((character) =>
+        character.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    );
+  }, [favorites, searchQuery]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -19,7 +34,7 @@ const FavoritesPage = () => {
       <Header />
       <CharacterSearch
         handleSearchChange={handleSearchChange}
-        characters={favorites}
+        characters={filteredFavorites}
         title={'FAVORITES'}
       />
     </>
