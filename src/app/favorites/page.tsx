@@ -8,13 +8,13 @@ import { useEffect, useState } from 'react';
 
 const FavoritesPage = () => {
   const { setSearchQuery, searchQuery, resetSearch } = useSearch();
-  const { favorites } = useFavorites();
+  const { favorites, setIsFromFavorites } = useFavorites();
   const [filteredFavorites, setFilteredFavorites] =
     useState<Character[]>(favorites);
 
   useEffect(() => {
     resetSearch();
-  });
+  }, []);
 
   useEffect(() => {
     setFilteredFavorites(
@@ -28,6 +28,11 @@ const FavoritesPage = () => {
     const value = event.target.value;
     setSearchQuery(value);
   };
+
+  useEffect(() => {
+    setIsFromFavorites(true);
+    return () => setIsFromFavorites(false); // Reset the state when the component unmounts
+  }, [setIsFromFavorites]);
 
   return (
     <>

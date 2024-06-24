@@ -1,49 +1,40 @@
-import Image from 'next/image';
-import styles from '../styles/card.module.scss';
+import styles from '../styles/listCard.module.scss';
 import { useFavorites } from '../contexts/FavoritesContext';
+import { Card } from './Card';
+import { useRouter } from 'next/navigation';
 
 export const CardList = ({ list }: CardListProps) => {
-  const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const { isFavorite, addFavorite, removeFavorite, isFromFavorites } =
+    useFavorites();
+  const router = useRouter();
 
-  const isFavorite = (character: Character) => {
-    return favorites.some((fav) => fav.id === character.id);
-  };
+  const getHandleFavoriteClick = () => {
+    const handleFavoriteClick = (character: Character) => {
+      if (isFavorite(character)) {
+        removeFavorite(character.id);
+      } else {
+        addFavorite(character);
+      }
+    };
 
-  const handleFavoriteClick = (character: Character) => {
-    if (isFavorite(character)) {
-      removeFavorite(character.id);
+    const handleGoDetailClick = (character: Character) => {
+      router.push(`/character/${character.id}`);
+    };
+
+    if (isFromFavorites) {
+      return handleGoDetailClick;
     } else {
-      addFavorite(character);
+      return handleFavoriteClick;
     }
   };
   return (
     <div className={styles.cardsContainer}>
       {list.map((item) => (
-        <div className={styles.card} key={item.id}>
-          <div className={styles.cardInner}>
-            <img
-              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              alt="Hero image"
-            />
-            <div
-              className={styles.boxContent}
-              onClick={() => handleFavoriteClick(item)}
-            >
-              <div className={styles.hoverOverlay}></div>
-              <span className={styles.rightBox}>{item.name}</span>
-              <div className={styles.leftBox}>
-                <Image
-                  src={
-                    isFavorite(item) ? '/heart.svg' : '/unselected-heart.svg'
-                  }
-                  alt="Favorite Hero"
-                  width={12}
-                  height={10.84}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Card
+          key={item.id}
+          character={item}
+          handleCardClick={getHandleFavoriteClick()}
+        />
       ))}
     </div>
   );

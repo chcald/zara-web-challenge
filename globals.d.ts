@@ -43,3 +43,17 @@ interface Params {
   offset?: number | undefined;
   nameStartsWith?: string;
 }
+
+interface CardProps {
+  character: Character;
+  handleCardClick: (favorite: Character) => void;
+}
+interface ComicProps {
+  resourceURI: string;
+  name: string;
+  image?: string; 
+}
+
+interface ComicsListProps {
+  comics: CharacterCategory;
+}

@@ -1,0 +1,122 @@
+@import 'variables';
+@import 'mixins';
+
+.characterDetailContainer {
+  @include space-between-flex;
+  flex-direction: column;
+  color: $white-color;
+  background-color: $black-color;
+  position: relative;
+
+  @include fixed-after(24px, 24px);
+
+  .cardInner {
+    @include space-between-flex;
+    margin-top: 84px;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      height: 320px;
+    }
+
+    .boxContent {
+      @include space-between-flex;
+      align-items: normal;
+      flex-direction: column;
+      color: $white-color;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+
+      .boxInner {
+        @include space-between-flex;
+        padding: 0 24px;
+
+        .rightBox {
+          flex-basis: 65%;
+          word-wrap: break-word;
+          font-size: 40px;
+          font-weight: 700;
+          line-height: 46.88px;
+          text-align: left;
+        }
+
+        .leftBox {
+          flex-basis: 17%;
+
+          img {
+            width: 22px;
+            height: 24px;
+          }
+        }
+      }
+
+      .bottomBox {
+        padding: 0 24px;
+        word-wrap: break-word;
+        font-family: Roboto Condensed;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18.75px;
+        text-align: left;
+      }
+    }
+  }
+}
+.comicsContainer {
+  width: 100%;
+  padding-left: 48px;
+  margin: 0 auto; 
+
+  .title {
+    @include title;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* tablet */
+@media (min-width: 600px) {
+  .comicsContainer {
+    max-width: 960px;
+    padding-left: 16px;
+  }
+}
+
+/* desktop */
+@media (min-width: 1024px) {
+  .comicsContainer {
+    max-width: 960px;
+  }
+}
+
+/* tablet */
+@media (min-width: 600px) {
+  .cardInner {
+    width: 100%;
+    flex-direction: row;
+
+    img {
+      width: 320px;
+      height: 320px;
+    }
+  }
+}
+
+/* desktop */
+@media (min-width: 1024px) {
+  .characterDetailContainer {
+    .cardInner {
+      max-width: 960px;
+      flex-direction: row;
+
+      img {
+        width: 320px;
+        height: 320px;
+      }
+    }
+  }
+}

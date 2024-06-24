@@ -8,3 +8,24 @@
   display: flex;
   justify-content: center;
 }
+
+@mixin fixed-after($width, $height) {
+  &::after {
+    content: '';
+    position: absolute;
+    width: $width;
+    height: $height;
+    background-color: $background-color;
+    bottom: -1px;
+    right: -1px;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+}
+
+@mixin title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 37.5px;
+  text-align: left;
+  color: $black-color;
+}

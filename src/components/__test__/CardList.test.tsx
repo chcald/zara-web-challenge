@@ -1,129 +1,81 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { CardList } from '../CardList';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { useRouter } from 'next/navigation';
 import { useFavorites } from '../../contexts/FavoritesContext';
+import { CardList } from '../../components/CardList';
+
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
 
 jest.mock('../../contexts/FavoritesContext', () => ({
   useFavorites: jest.fn(),
 }));
 
-const characterMocklist: Character[] = [
-  {
-    id: 1,
-    name: 'Character 1',
-    thumbnail: { path: '/path1', extension: 'jpg' },
-    description: '',
-    modified: '',
-    resourceURI: '',
-    comics: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    series: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    stories: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    events: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    urls: [{ type: '', url: '' }],
-  },
-  {
-    id: 2,
-    name: 'Character 2',
-    thumbnail: { path: '/path2', extension: 'jpg' },
-    description: '',
-    modified: '',
-    resourceURI: '',
-    comics: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    series: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    stories: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    events: {
-      available: 0,
-      collectionURI: '',
-      items: [{ resourceURI: '', name: '' }],
-      returned: 0,
-    },
-    urls: [{ type: '', url: '' }],
-  },
-];
+const mockPush = jest.fn();
 
-describe('CardList component', () => {
-  const mockFavorites = {
-    favorites: [] as Character[],
-    addFavorite: jest.fn(),
-    removeFavorite: jest.fn(),
+describe('CardList', () => {
+  const mockCharacter: Character = {
+    id: 1,
+    name: 'Test Character',
+    thumbnail: { path: 'path/to/image', extension: 'jpg' },
+    description: '',
+    modified: '',
+    resourceURI: '',
+    comics: { available: 0, collectionURI: '', items: [{ resourceURI: '', name: '', type: '' }], returned: 0 },
+    series: { available: 0, collectionURI: '', items: [{ resourceURI: '', name: '', type: '' }], returned: 0 },
+    stories: { available: 0, collectionURI: '', items: [{ resourceURI: '', name: '', type: '' }], returned: 0 },
+    events: { available: 0, collectionURI: '', items: [{ resourceURI: '', name: '', type: '' }], returned: 0 },
+    urls: [{ type: 'detail', url: 'http://test.url' }],
   };
 
+  const mockIsFavorite = jest.fn();
+  const mockAddFavorite = jest.fn();
+  const mockRemoveFavorite = jest.fn();
+  const mockIsFromFavorites = false;
+
   beforeEach(() => {
-    (useFavorites as jest.Mock).mockReturnValue(mockFavorites);
+    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
+    (useFavorites as jest.Mock).mockReturnValue({
+      isFavorite: mockIsFavorite,
+      addFavorite: mockAddFavorite,
+      removeFavorite: mockRemoveFavorite,
+      isFromFavorites: mockIsFromFavorites,
+    });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders a list of cards correctly', () => {
-    render(<CardList list={characterMocklist} />);
-
-    characterMocklist.forEach((item) => {
-      expect(screen.getByText(item.name)).toBeInTheDocument();
-    });
+  it('should render the list of characters', () => {
+    render(<CardList list={[mockCharacter]} />);
+    expect(screen.getByText('Test Character')).toBeInTheDocument();
   });
 
-  it('handles add favorite click correctly', async () => {
-    render(<CardList list={characterMocklist} />);
-
-    const favoriteIcon = screen.getAllByAltText('Favorite Hero')[0];
-    await act(async () => {
-      fireEvent.click(favoriteIcon);
-    });
-
-    expect(mockFavorites.addFavorite).toHaveBeenCalledWith(
-      characterMocklist[0],
-    );
+  it('should call addFavorite when a non-favorite character is clicked', () => {
+    mockIsFavorite.mockReturnValue(false);
+    render(<CardList list={[mockCharacter]} />);
+    fireEvent.click(screen.getByText('Test Character'));
+    expect(mockAddFavorite).toHaveBeenCalledWith(mockCharacter);
   });
 
-  it('handles remove favorite click correctly', async () => {
-    mockFavorites.favorites = [characterMocklist[0]];
-    (useFavorites as jest.Mock).mockReturnValue(mockFavorites);
-    render(<CardList list={characterMocklist} />);
+  it('should call removeFavorite when a favorite character is clicked', () => {
+    mockIsFavorite.mockReturnValue(true);
+    render(<CardList list={[mockCharacter]} />);
+    fireEvent.click(screen.getByText('Test Character'));
+    expect(mockRemoveFavorite).toHaveBeenCalledWith(mockCharacter.id);
+  });
 
-    const favoriteIcon = screen.getAllByAltText('Favorite Hero')[0];
-    await act(async () => {
-      fireEvent.click(favoriteIcon);
+  it('should navigate to character detail page if isFromFavorites is true', () => {
+    (useFavorites as jest.Mock).mockReturnValue({
+      isFavorite: mockIsFavorite,
+      addFavorite: mockAddFavorite,
+      removeFavorite: mockRemoveFavorite,
+      isFromFavorites: true,
     });
-
-    expect(mockFavorites.removeFavorite).toHaveBeenCalledWith(
-      characterMocklist[0].id,
-    );
+    render(<CardList list={[mockCharacter]} />);
+    fireEvent.click(screen.getByText('Test Character'));
+    expect(mockPush).toHaveBeenCalledWith(`/character/${mockCharacter.id}`);
   });
 });

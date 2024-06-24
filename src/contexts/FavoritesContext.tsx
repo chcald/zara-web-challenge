@@ -6,6 +6,10 @@ interface FavoritesContextProps {
   favorites: Character[];
   addFavorite: (favorite: Character) => void;
   removeFavorite: (favoriteId: number) => void;
+  isFavorite: (favorite: Character) => boolean;
+  isFromFavorites: boolean;
+  setIsFromFavorites: (value: boolean) => void;
+  getFavoriteById: (id: number) => Character | undefined;
 }
 
 const FavoritesContext = createContext<FavoritesContextProps | undefined>(
@@ -14,6 +18,7 @@ const FavoritesContext = createContext<FavoritesContextProps | undefined>(
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<Character[]>([]);
+  const [isFromFavorites, setIsFromFavorites] = useState<boolean>(false);
 
   const addFavorite = (favorite: Character) => {
     setFavorites((prevFavorites) => [...prevFavorites, favorite]);
@@ -25,9 +30,24 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const isFavorite = (character: Character) =>
+    !character ? false : favorites.some((fav) => fav.id === character.id);
+
+  const getFavoriteById = (id: number): Character | undefined => {
+    return favorites.find((favorite) => favorite.id === id);
+  };
+
   return (
     <FavoritesContext.Provider
-      value={{ favorites, addFavorite, removeFavorite }}
+      value={{
+        favorites,
+        addFavorite,
+        removeFavorite,
+        isFavorite,
+        isFromFavorites,
+        setIsFromFavorites,
+        getFavoriteById
+      }}
     >
       {children}
     </FavoritesContext.Provider>

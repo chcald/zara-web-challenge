@@ -13,16 +13,20 @@ const HomePage = () => {
     const value = event.target.value;
     setSearchQuery(value);
     if (value.length > 0) {
-      fetchCharacters(undefined, value); // It would implement this in your useCharacters hook to support filtering by name
+      fetchCharacters(undefined, value); // It would implement this in the useCharacters hook to support filtering by name
     } else {
-      fetchCharacters(50); // Fetch initial list of characters when search term is cleared or too short
+      fetchCharacters(50); // Fetch initial list of characters when search term is cleared
     }
   };
 
   return (
     <>
       <Header />
-      <CharacterSearch handleSearchChange={handleSearchChange} error={error} characters={characters!} />
+      <CharacterSearch
+        handleSearchChange={handleSearchChange}
+        error={error}
+        characters={characters!}
+      />
     </>
   );
 };

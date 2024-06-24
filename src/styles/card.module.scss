@@ -1,13 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-.cardsContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-content: center;
-  gap: 1rem;
-}
-
 .card {
   background: $black-color;
   overflow: hidden;
@@ -27,16 +20,7 @@
       padding: 0;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: $background-color;
-      bottom: -1px;
-      right: -1px;
-      clip-path: polygon(100% 0, 0 100%, 100% 100%);
-    }
+    @include fixed-after(20px, 20px);
 
     .boxContent {
       @include space-between-flex;
@@ -86,18 +70,8 @@
   }
 }
 
-/* Estilos para tablets */
-@media (min-width: 600px) {
-  .cardsContainer {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Estilos para desktops */
+/* desktop */
 @media (min-width: 1024px) {
-  .cardsContainer {
-    grid-template-columns: repeat(7, 1fr);
-  }
   .card > .cardInner > .boxContent > .rightBox {
     flex-basis: 50%;
   }

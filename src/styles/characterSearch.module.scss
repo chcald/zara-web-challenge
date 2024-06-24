@@ -2,11 +2,7 @@
 @import 'variables';
 
 .title {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 37.5px;
-  text-align: left;
-  color: $black-color;
+  @include title;
   padding: 24px 0;
 }
 

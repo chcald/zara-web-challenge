@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "npx jest"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
